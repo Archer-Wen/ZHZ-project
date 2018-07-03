@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;ZHZ233&apos;&#x0D;&#x0A;- Original project: &apos;ZHZ233&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     commons-collections4-4.1.jar&#x0D;&#x0A;     mchange-commons-java-0.2.15.jar" description="Delete elements" element1="src/lib/commons-collections4-4.1.jar" element2="src/lib/mchange-commons-java-0.2.15.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="2" stamp="1528084217709" subPackages="false" version="1.0"/>
+</session>

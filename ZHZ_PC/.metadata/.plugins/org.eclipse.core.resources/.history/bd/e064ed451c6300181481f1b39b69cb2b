@@ -1,0 +1,141 @@
+ import java.util.concurrent.Callable;  
+ import java.util.concurrent.ExecutorService;  
+ import java.util.concurrent.Executors;  
+ import java.util.concurrent.Future;  
+ import java.util.concurrent.TimeUnit;  
+   
+ import com.sun.jna.Native;  
+ import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef.HWND;  
+ import com.sun.jna.platform.win32.WinUser.WNDENUMPROC;  
+   
+ /** 
+  * Window组件操作工具类 
+  *  
+  * @author sunju 
+  *  
+  */  
+ public class Win32Util {  
+   
+     private static final int N_MAX_COUNT = 512;  
+   
+     private Win32Util() {  
+     }  
+   
+     
+     /** 
+      * 模拟字符输入，同步事件。使用win32 SendMessage API发送WM_CHAR事件。默认10秒超时 
+      * @param hwnd 被输入字符的组件的句柄 
+      * @param content 输入的内容。字符串会被转换成<code>char[]</code>后逐个字符输入 
+      * @return 字符输入事件发送成功返回<code>true</code>，字符输入事件发送失败或超时返回<code>false</code> 
+      */  
+     public static boolean simulateCharInput(final HWND hwnd, final String content) {  
+         if(null == hwnd) {  
+             return false;  
+         }  
+         try {  
+             return execute(new Callable<Boolean>() {  
+   
+                 @Override  
+                 public Boolean call() throws Exception {  
+                     User32Ext.SwitchToThisWindow(hwnd, true); 
+                     for(char c : content.toCharArray()) {  
+                         Thread.sleep(5);  
+                         User32Ext.SendMessage(hwnd, WM_CHAR, (byte) c, 0);  
+                     }  
+                     return true;  
+                 }  
+   
+             });  
+         } catch(Exception e) {  
+             return false;  
+         }  
+     }  
+       
+     public static boolean simulateCharInput(final HWND hwnd, final String content, final long sleepMillisPreCharInput) {  
+         if(null == hwnd) {  
+             return false;  
+         }  
+         try {  
+             return execute(new Callable<Boolean>() {  
+   
+                 @Override  
+                 public Boolean call() throws Exception {  
+                     USER32EXT.SwitchToThisWindow(hwnd, true);  
+                     USER32EXT.SetFocus(hwnd);  
+                     for(char c : content.toCharArray()) {  
+                         Thread.sleep(sleepMillisPreCharInput);  
+                         USER32EXT.SendMessage(hwnd, WM_CHAR, (byte) c, 0);  
+                     }  
+                     return true;  
+                 }  
+   
+             });  
+         } catch(Exception e) {  
+             return false;  
+         }  
+     }  
+   
+     /** 
+      * 模拟文本输入，同步事件。使用win32 SendMessage API发送WM_SETTEXT事件。默认10秒超时 
+      * @param hwnd 被输入文本的组件的句柄 
+      * @param content 输入的文本内容 
+      * @return 文本输入事件发送成功返回<code>true</code>，文本输入事件发送失败或超时返回<code>false</code> 
+      */  
+     public static boolean simulateTextInput(final HWND hwnd, final String content) {  
+         if(null == hwnd) {  
+             return false;  
+         }  
+         try {  
+             return execute(new Callable<Boolean>() {  
+   
+                 @Override  
+                 public Boolean call() throws Exception {  
+                     User32Ext.SwitchToThisWindow(hwnd, true);  
+                     USER32EXT.SetFocus(hwnd);  
+                     USER32EXT.SendMessage(hwnd, WM_SETTEXT, 0, content);  
+                     return true;  
+                 }  
+   
+             });  
+         } catch(Exception e) {  
+             return false;  
+         }  
+     }  
+   
+     /** 
+      * 模拟鼠标点击，同步事件。使用win32 SendMessage API发送BM_CLICK事件。默认10秒超时 
+      * @param hwnd 被点击的组件的句柄 
+      * @return 点击事件发送成功返回<code>true</code>，点击事件发送失败或超时返回<code>false</code> 
+      */  
+     public static boolean simulateClick(final HWND hwnd) {  
+         if(null == hwnd) {  
+             return false;  
+         }  
+         try {  
+             return execute(new Callable<Boolean>() {  
+   
+                 @Override  
+                 public Boolean call() throws Exception {  
+                     User32Ext.SwitchToThisWindow(hwnd, true);  
+                     USER32EXT.SendMessage(hwnd, BM_CLICK, 0, null);  
+                     return true;  
+                 }  
+   
+             });  
+         } catch(Exception e) {  
+             return false;  
+         }  
+     }  
+   
+     private static <T> T execute(Callable<T> callable) throws Exception {  
+         ExecutorService executor = Executors.newSingleThreadExecutor();  
+         try {  
+             Future<T> task = executor.submit(callable);  
+             return task.get(10, TimeUnit.SECONDS);  
+         } finally {  
+             executor.shutdown();  
+         }  
+     }  
+ }

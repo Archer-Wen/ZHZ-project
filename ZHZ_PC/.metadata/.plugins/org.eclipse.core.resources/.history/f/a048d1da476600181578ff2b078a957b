@@ -1,0 +1,253 @@
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef.HMODULE;
+import com.sun.jna.platform.win32.WinDef.HWND;
+import com.sun.jna.platform.win32.WinDef.LRESULT;
+import com.sun.jna.platform.win32.WinDef.WPARAM;
+import com.sun.jna.platform.win32.WinUser;
+
+public class ces extends JFrame implements Runnable{
+
+	private JPanel contentPane;
+	private WinUser.HHOOK hhk;
+
+	/**
+	 * Launch the application.
+	 */
+			public static void main(String[] args) throws Exception {
+                // TODO Auto-generated method stub
+                Robot robot = new Robot(); //创建一个robot对象
+                //Runtime.getRuntime().exec("notepad");        //打开一个记事本程序
+               // robot.delay(2000);        //等待 2秒
+                //窗口最大化
+                /*keyPressWithAlt(robot, KeyEvent.VK_SPACE); //按下 alt+ 空格
+                keyPress(robot, KeyEvent.VK_X);  //按下x键
+                robot.delay(1000);  //等待 1秒
+                keyPressString(robot, "大家好，我是一个小机器人，我有很多本领呢 ！"); //输入字符串
+                robot.delay(3000);  //等待 3秒
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                keyPressString(robot, "现在，我就向大家展示一下.....嘻嘻"); //输入字符串
+                robot.delay(3000);  //等待 3秒
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                keyPressString(robot, "首先，我能按下 键盘的任何一个键。下面,我单独按下a,b,c,d键"); //输入字符串
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                robot.delay(3000);  //等待 3秒
+                keyPress(robot, KeyEvent.VK_A); //按下 a 键
+                robot.delay(2000);  //等待 2秒
+                keyPress(robot, KeyEvent.VK_B); //按下 b 键
+                robot.delay(2000);  //等待 2秒
+                keyPress(robot, KeyEvent.VK_C); //按下 c 键
+                robot.delay(2000);  //等待 2秒
+                keyPress(robot, KeyEvent.VK_D); //按下 d 键
+                robot.delay(2000);  //等待 2秒
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                keyPressString(robot, "呵呵，完成了。。。。  ");
+                robot.delay(3000);  //等待 3秒
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                keyPressString(robot, "恩，对了    上面 文字很多  是不是 感到 很乱呢？？？     我现在 帮你清空一下 ");
+                robot.delay(2000);  //等待 2秒
+                keyPressWithCtrl(robot,KeyEvent.VK_A); //按下 ctrl+A 全选
+                robot.delay(2000);  //等待 2秒
+                keyPress(robot,KeyEvent.VK_DELETE); //清除
+                robot.delay(3000);  //等待 3秒
+                keyPressString(robot, "恩，现在 是不是 觉得 清爽多了              另外 我还会按 组合键呢 ...");
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                robot.delay(3000);  //等待 3秒
+                keyPressString(robot, "................好像已经 演示过了 吧 ，呵呵    ");
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                robot.delay(3000);  //等待 3秒
+                keyPressString(robot, "其实，我还有很多本领呢                           现在就不向大家展示了 .....");
+                keyPress(robot, KeyEvent.VK_ENTER); // 按下 enter 换行
+                robot.delay(3000);  //等待 3秒
+                keyPressString(robot, "谢谢大家！！！！！");*/
+                
+				/*String windowName = "Steam 登录";  
+		        HWND hwnd = User32.INSTANCE.FindWindow("vguiPopupWindow",windowName);  
+		        if (hwnd==null)System.out.println("Miss!");  
+		        else {  
+		            System.out.println("Hit!");  
+		            boolean showed = User32.INSTANCE.ShowWindow(hwnd, WinUser.SW_RESTORE );  
+		            System.out.println(windowName+(showed?"窗口之前可见.":"窗口之前不可见."));  
+		        } 
+		        int foreThreadId=User32.INSTANCE.GetWindowThreadProcessId(hwnd,null);
+		        System.out.println("ces句柄ID:"+foreThreadId);
+		        robot.delay(3000);
+		        HWND wnd;
+		        wnd=User32.INSTANCE.GetForegroundWindow();
+		        int ForeThreadId=User32.INSTANCE.GetWindowThreadProcessId(wnd,null);
+		        System.out.println("ces句柄ID:"+ForeThreadId);*/
+		        
+		        //键盘钩子
+		        /*ces kh = new ces();
+		        new Thread(kh).start();*/
+		        
+		        //执行CMD命令
+		        /*String command="ipconfig -all";  
+		        String s="IPv4";  
+		        String line = null;  
+		        StringBuilder sb = new StringBuilder();  
+		        Runtime runtime = Runtime.getRuntime();//获得Java运行时对象  
+		        try {  
+		        Process process = runtime.exec(command);//执行CMD命令  
+		        BufferedReader  bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));//获得命令返回
+		          
+		            while ((line = bufferedReader.readLine()) != null) {  
+		                sb.append(line + "\n");  
+		                if (line.contains(s)) {  
+		                    System.out.println(line);  
+		                }  
+		            }  
+		        } catch (IOException e) {  
+		            // TODO 自动生成的 catch 块  
+		            e.printStackTrace();  
+		        }  */
+		        
+		        //测试定时任务1
+		       /* String job_name = "动态任务调度";  
+	            System.out.println("【任务启动】开始(每10秒输出一次)...");    
+	            QuartzManager.addJob(job_name, QuartzJob.class, "0/10 * * * * ?");*/
+	            
+	            //定时任务线程模式
+	            QuartzDoing rescue = new QuartzDoing();
+	            new Thread(rescue).start();
+	            
+	            Runtime.getRuntime().addShutdownHook(this);
+		        /*robot.delay(3000);  //等待 3秒
+		        int kye[][] = new int[2][2];
+		        kye[0][0] = 72;
+		        kye[0][1] = 73;
+		        kye[1][0] = 74;
+		        kye[1][1] = 75;
+		        
+		        System.out.println(Win32Util.simulateKeyboardEvent(hwnd, kye));*/
+		        
+		       /* Schedul4399Utils Utils = new Schedul4399Utils();
+		        Utils.Schedul4399("binbin201806", "QQ109ZL2");*/
+        }
+
+        // shift+ 按键
+        public static void keyPressWithShift(Robot r, int key) {
+                r.keyPress(KeyEvent.VK_SHIFT);
+                r.keyPress(key);
+                r.keyRelease(key);
+                r.keyRelease(KeyEvent.VK_SHIFT);
+                r.delay(100);
+        }
+
+        // ctrl+ 按键
+        public static void keyPressWithCtrl(Robot r, int key) {
+                r.keyPress(KeyEvent.VK_CONTROL);
+                r.keyPress(key);
+                r.keyRelease(key);
+                r.keyRelease(KeyEvent.VK_CONTROL);
+                r.delay(100);
+        }
+
+        // alt+ 按键
+        public static void keyPressWithAlt(Robot r, int key) {
+                r.keyPress(KeyEvent.VK_ALT);
+                r.keyPress(key);
+                r.keyRelease(key);
+                r.keyRelease(KeyEvent.VK_ALT);
+                r.delay(100);
+        }
+        //打印出字符串
+        public static void keyPressString(Robot r, String str){
+                Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();//获取剪切板
+                Transferable tText = new StringSelection(str);
+                clip.setContents(tText, null); //设置剪切板内容
+                keyPressWithCtrl(r, KeyEvent.VK_V);//粘贴
+                r.delay(100);
+        }
+        
+        //单个 按键
+        public static void keyPress(Robot r,int key){
+                r.keyPress(key);
+                r.keyRelease(key);
+                r.delay(100);
+        }
+        
+        //连续按键打印字符串
+		public static void keyMyPressString(Robot r, String str) {
+			
+				r.keyPress(MyKeyEvent.VK_0);
+                r.keyRelease(MyKeyEvent.VK_0);
+                r.delay(100);
+			
+		}
+		/**
+		 * 
+		 * 
+		 */
+	        
+      //钩子回调函数  
+	private WinUser.LowLevelKeyboardProc keyboardProc = new WinUser.LowLevelKeyboardProc() {
+		@Override
+		public LRESULT callback(int nCode, WPARAM wParam, WinUser.KBDLLHOOKSTRUCT event) {
+			// 输出按键值和按键时间
+			if (nCode >= 0) {
+				String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+				System.out.println(time + " KEY: " + event.vkCode);
+				Robot robot;
+				try {
+					robot = new Robot();
+					if (event.vkCode == 72)
+						keyPress(robot, 72);
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// 按下ESC退出
+				if (event.vkCode == 27)
+					setHookOff();
+			}
+			return User32.INSTANCE.CallNextHookEx(hhk, nCode, wParam, null);
+		}
+	};// MyBlog @See http://blog.csdn.net/shenpibaipao  
+      
+        public void run() {  
+            setHookOn();  
+        }  
+        // 安装钩子  
+        public void setHookOn(){  
+            System.out.println("Hook On!");  
+      
+            HMODULE hMod = Kernel32.INSTANCE.GetModuleHandle(null);  
+            hhk = User32.INSTANCE.SetWindowsHookEx(User32.WH_KEYBOARD_LL, keyboardProc, hMod, 0);  
+      
+            int result;  
+            WinUser.MSG msg = new WinUser.MSG();  
+            while ((result = User32.INSTANCE.GetMessage(msg, null, 0, 0)) != 0) {  
+                if (result == -1) {  
+                    setHookOff();  
+                    break;  
+                } else {  
+                    User32.INSTANCE.TranslateMessage(msg);  
+                    User32.INSTANCE.DispatchMessage(msg);  
+                }  
+            }  
+        }  
+        // 移除钩子并退出  
+        public void setHookOff(){  
+            System.out.println("Hook Off!");  
+            User32.INSTANCE.UnhookWindowsHookEx(hhk);  
+            System.exit(0);  
+        }  
+        
+}

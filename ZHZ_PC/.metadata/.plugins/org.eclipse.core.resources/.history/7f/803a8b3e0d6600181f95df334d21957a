@@ -1,0 +1,67 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
+public class WebSHQ extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
+					org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+					WebSHQ frame = new WebSHQ();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public WebSHQ() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SHQ.class.getResource("/img/sy_public_logo.gif")));
+		setBounds(600, 150, 600, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		getContentPane().setLayout(null);
+		
+		
+		JPanel panel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
+				ImageIcon imageIcon = new ImageIcon("src/img/sy_public_logo.gif");
+				Image img = imageIcon.getImage();
+				g.drawImage(img, 0, 0, 260, 155, imageIcon.getImageObserver());
+			}
+		};
+		panel.setBounds(0, 0, 260, 155);
+		this.getContentPane().add(panel);
+		panel.setLayout(null);
+	}
+
+}

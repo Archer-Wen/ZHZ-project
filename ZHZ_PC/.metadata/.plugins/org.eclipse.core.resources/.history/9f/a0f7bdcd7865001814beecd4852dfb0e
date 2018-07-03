@@ -1,0 +1,152 @@
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinUser;
+import com.sun.jna.platform.win32.WinDef.HMODULE;
+import com.sun.jna.platform.win32.WinDef.LRESULT;
+import com.sun.jna.platform.win32.WinDef.WPARAM;
+
+public class KeyboardHook implements Runnable{
+	private WinUser.HHOOK hhk;
+	private String oldtime;
+	private String password;
+	private String access;
+	//复写初始化函数
+	public KeyboardHook(String access,String password) {
+		this.password = password;
+		this.access = access;
+	}
+	//钩子回调函数  
+    private WinUser.LowLevelKeyboardProc keyboardProc = new WinUser.LowLevelKeyboardProc() {  
+        @Override  
+        public LRESULT callback(int nCode, WPARAM wParam, WinUser.KBDLLHOOKSTRUCT event) {  
+            // 输出按键值和按键时间  
+			if (nCode >= 0) {
+				String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+				if (!time.equals(oldtime)) {//按下和放开只选一个事件响应
+					oldtime = time;
+					System.out.println(time + " KEY: " + event.vkCode);
+					if (event.vkCode == KeyEvent.VK_F7 /*&& FindFrame.judgeSteamFrame()*/) {
+						System.out.println("按了qidong键");
+						try {
+							Robot robot = new Robot();//创建一个robot对象
+							robot.delay(2000);
+							/*keyPressString(robot,access);//输入账号*/	
+							byte[] b = access.getBytes();
+							for (int i = 0; i < access.length(); i++) {
+								keyPress(robot, b[i]);
+							}
+							System.out.println("输入账号");
+							robot.delay(2000);
+							keyPress(robot,KeyEvent.VK_TAB);//按Tab键
+							System.out.println("按Tab键");
+							robot.delay(2000);
+							/*keyPressString(robot, password); //输入密码*/
+							b = password.getBytes();
+							for (int i = 0; i < password.length(); i++) {
+
+							}
+							System.out.println("输入密码");
+							robot.delay(2000);
+							keyPress(robot,KeyEvent.VK_ENTER);
+							System.out.println("按了Enter键");
+						} catch (AWTException e) {
+							e.printStackTrace();
+						} 
+						//清空剪切板
+						Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();//获取剪切板
+			            Transferable tText = new StringSelection("");
+			            clip.setContents(tText, null); //设置剪切板内容
+			            
+					}
+				}
+                // 按下ESC退出  
+                if(event.vkCode==27) setHookOff();  
+            }  
+            return User32.INSTANCE.CallNextHookEx(hhk, nCode, wParam, null);  
+        }  
+    };//MyBlog @See http://blog.csdn.net/shenpibaipao  
+  
+    public void run() {
+    	System.out.println("new hook");
+        setHookOn();  
+    }  
+    // 安装钩子  
+    public void setHookOn(){  
+        System.out.println("Hook On!");  
+  
+        HMODULE hMod = Kernel32.INSTANCE.GetModuleHandle(null);  
+        hhk = User32.INSTANCE.SetWindowsHookEx(User32.WH_KEYBOARD_LL, keyboardProc, hMod, 0);  
+  
+        int result;  
+        WinUser.MSG msg = new WinUser.MSG();  
+        while ((result = User32.INSTANCE.GetMessage(msg, null, 0, 0)) != 0) {  
+            if (result == -1) {  
+                setHookOff();  
+                break;  
+            } else {  
+                User32.INSTANCE.TranslateMessage(msg);  
+                User32.INSTANCE.DispatchMessage(msg);  
+            }  
+        }  
+    }  
+    // 移除钩子并退出  
+    public void setHookOff(){  
+        System.out.println("Hook Off!");  
+        User32.INSTANCE.UnhookWindowsHookEx(hhk);  
+        System.exit(0);  
+    }  
+    
+    // shift+ 按键
+    public static void keyPressWithShift(Robot r, int key) {
+            r.keyPress(KeyEvent.VK_SHIFT);
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.keyRelease(KeyEvent.VK_SHIFT);
+            r.delay(100);
+    }
+
+    // ctrl+ 按键
+    public static void keyPressWithCtrl(Robot r, int key) {
+            r.keyPress(KeyEvent.VK_CONTROL);
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.keyRelease(KeyEvent.VK_CONTROL);
+            r.delay(100);
+    }
+
+    // alt+ 按键
+    public static void keyPressWithAlt(Robot r, int key) {
+            r.keyPress(KeyEvent.VK_ALT);
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.keyRelease(KeyEvent.VK_ALT);
+            r.delay(100);
+    }
+    //打印出字符串
+    public static void keyPressString(Robot r, String str){
+            Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();//获取剪切板
+            Transferable tText = new StringSelection(str);
+            clip.setContents(tText, null); //设置剪切板内容
+            keyPressWithCtrl(r, KeyEvent.VK_V);//粘贴
+            r.delay(100);
+    }
+    
+    //单个 按键
+    public static void keyPress(Robot r,int key){
+            r.keyPress(key);
+            r.keyRelease(key);
+            r.delay(100);
+    }
+    
+	
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="isCancel" key="selection"/>
+		<item value="true" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="isCancel"/>
+			<item value="flag"/>
+			<item value="登陆"/>
+			<item value="railsboy"/>
+			<item value="keybd_event"/>
+			<item value="EnumChildWindows"/>
+			<item value="GetDesktopWindow"/>
+			<item value="^[0-9]*"/>
+			<item value="^[0-9]*$"/>
+			<item value="^[a-zA-Z0-9_]$"/>
+			<item value="^[a-zA-Z0-9_]{6,12}$"/>
+			<item value="*."/>
+			<item value="*.."/>
+			<item value="VK_h"/>
+			<item value="VK_H"/>
+		</list>
+		<list key="replacehistory">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="356" key="DIALOG_WIDTH"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+		<item value="454" key="DIALOG_HEIGHT"/>
+		<item value="1201" key="DIALOG_X_ORIGIN"/>
+		<item value="280" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

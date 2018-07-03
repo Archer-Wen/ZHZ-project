@@ -1,0 +1,59 @@
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+public class QuartzJob implements Job {  
+  
+    @Override  
+    public void execute(JobExecutionContext content) throws JobExecutionException {  
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+ "★★★★★★★★★★★");    
+       /* String jobName = content.getJobDetail().getDescription();
+        JobDataMap dataMap = content.getJobDetail().getJobDataMap();  
+        String param = dataMap.getString("param");  
+        System.out.println("传递的参数是="+param +"任务名字是="+jobName);*/
+        String orderNo = content.getJobDetail().getJobDataMap().getString("jobName");
+        System.out.println(orderNo);
+        //构建URL，发起HTTP请求
+        String url = "http://localhost:8080/wlh/JudgeTimeout?";
+        url+="orderNo="+orderNo;
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost httpGet = new HttpPost(url);
+		CloseableHttpResponse response = null;
+		//获取返回数据
+		try {
+			response = httpClient.execute(httpGet);
+			if (response.getStatusLine().getStatusCode() == 200) {//请求成功Do
+				HttpEntity entity = response.getEntity();
+				String data = EntityUtils.toString(entity);
+				if(data.equals("0")) {
+					System.out.println("要下线啦");
+					String closeWeb = "taskkill /f /t /im geckodriver.exe";
+					String closeSteam = "taskkill /f /t /im Steam.exe";
+					Runtime runtime = Runtime.getRuntime();
+					runtime.exec(closeSteam);
+					runtime.exec(closeWeb);
+				}
+			}else {
+				
+			}
+			//关闭
+			response.close();
+			httpClient.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    }  
+}  
