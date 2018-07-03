@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.FileURLMapper">
+    <!--selectAutoNo-->
+    <sql id="selectAutoNo">
+        SELECT file_no
+        FROM tab_file_url
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--insertTByKey-->
+    <insert id="insertTByKey">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_file_url(file_no,file_url,file_theme)
+        values (#{fileNo},#{fileURL},#{fileTheme})
+    </insert>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+</mapper>

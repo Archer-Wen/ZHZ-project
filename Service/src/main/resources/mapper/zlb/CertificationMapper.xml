@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.CertificationMapper">
+    <!--selectAutoNo-->
+    <sql id="selectAutoNo">
+        SELECT certification_no
+        FROM tab_certification
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--insertTByKey-->
+    <insert id="insertTByKey">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_certification(certification_no,account_no,real_name,id_number,front_face_url,reverse_face_url,handheld_face_url)
+        values (#{certificationNo},#{accountNo},#{realName},#{IdNumber},#{frontFaceURL},#{reverseFaceURL},#{handheldFaceURL})
+    </insert>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+</mapper>

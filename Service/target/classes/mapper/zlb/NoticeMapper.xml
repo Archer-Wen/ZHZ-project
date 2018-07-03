@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.NoticeMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        SELECT notice_no,notice_type,notice_theme,notice_content,create_time,notice_viewcount
+        FROM tab_notice
+    </sql>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.NoticeResult">
+        <include refid="selectTByKey"/>
+        where notice_type = #{noticetype}
+        and notice_recomm = #{noticerecomm}
+        order by create_time desc
+        limit #{pagesize}
+    </select>
+</mapper>

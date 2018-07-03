@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.OrderMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        SELECT order_no,goods_no,tab_user.account,
+          (select distinct account from tab_user,tab_lease_order
+          where tab_lease_order.buyer_no = tab_user.account_no)as 'buyer',
+          order_amount,
+          timestampdiff(hour,order_start_time,order_end_time) as 'order_time',
+          tab_lease_order.create_time
+        FROM tab_lease_order,tab_user
+    </sql>
+    <!--selectTByAuto-->
+    <sql id="selectAutoNo">
+        SELECT order_no
+        FROM tab_lease_order
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--insertTByKey-->
+    <insert id="insertTByKey" parameterType="com.zhzteam.zhz233.model.zlb.LeaseOrderInfo">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_lease_order(
+        order_no,goods_no,account_no,buyer_no,order_amount,
+        order_start_time,order_end_time,order_state,update_time,create_time
+        )
+        values (#{order_no},#{goods_no},#{account_no},#{buyer_no},#{order_amount},
+        #{order_start_time},#{order_end_time},#{order_state},#{update_time},#{create_time})
+    </insert>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.LeaseOrderResult">
+        <include refid="selectTByKey"/>
+        where tab_user.account_no = tab_lease_order.account_no
+        and order_state = 2
+        order by create_time desc
+        limit #{pagesize}
+    </select>
+</mapper>

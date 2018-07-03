@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.RentMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        select tab_goods.goods_no,tab_user.account,tab_goods.goods_game,
+          tab_goods.goods_theme,tab_goods.goods_recomm,tab_goods.goods_amount,
+          tab_goods_rent.goods_compensate,tab_goods_rent.goods_short_time,
+          tab_goods_rent.goods_credit_level
+        from tab_goods,tab_user,tab_goods_rent
+    </sql>
+    <!--selectTBySKey-->
+    <sql id="selectTBySKey">
+        select tab_goods.goods_no,tab_user.account,tab_goods.goods_game,
+          tab_goods.goods_theme,tab_goods.goods_recomm,tab_goods.goods_amount,
+          tab_goods_rent.goods_compensate,tab_goods_rent.goods_short_time,
+          tab_goods_rent.goods_credit_level
+        from tab_goods,tab_user,tab_goods_rent,tab_goods_more
+    </sql>
+    <!--selectTBySAutoCount-->
+    <sql id="selectTBySAutoCount">
+        select COUNT(tab_goods.id)
+        from tab_goods,tab_user,tab_goods_rent,tab_goods_more
+    </sql>
+
+    <sql id="selectTByGoodsNo">
+        select tab_goods.goods_no,tab_user.account,tab_goods.goods_game,tab_goods.goods_theme,
+          tab_goods_rent.goods_short_time,tab_goods.goods_amount,
+          tab_goods_rent.goods_night,tab_goods_rent.goods_day,tab_goods_rent.goods_week,
+          tab_goods.goods_recomm,tab_goods_more.goods_server,tab_goods_more.goods_area,
+          tab_goods_rent.goods_logon_style,tab_goods_rent.goods_compensate,
+          tab_goods_more.goods_role,tab_goods_more.goods_grade,tab_goods_more.goods_rank,
+          tab_goods_more.goods_case,tab_goods_more.goods_access,tab_goods_rent.goods_delay,
+          tab_goods_rent.goods_credit_level
+        from tab_goods,tab_goods_rent,tab_goods_more,tab_user
+    </sql>
+
+    <!--selectTByGoodsNo-->
+    <select id="selectTByGoodsNo" resultType="com.zhzteam.zhz233.model.zlb.GoodsRentMoreResult">
+          <include refid="selectTByGoodsNo"/>
+            where tab_goods.goods_no = tab_goods_rent.goods_no
+            and tab_goods.goods_no = tab_goods_more.goods_no
+            and tab_goods.account_no = tab_user.account_no
+            and tab_goods.goods_status = 1
+            and tab_goods.goods_type = 1
+          and tab_goods.goods_no = #{goodsNo};
+    </select>
+
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.RentResult">
+        <include refid="selectTByKey"/>
+        where tab_goods.account_no = tab_user.account_no
+        and tab_goods.goods_no = tab_goods_rent.goods_no
+        and tab_goods.goods_type= #{goodstype}
+        and tab_goods.goods_status= #{goodsstatus}
+        order by tab_goods.goods_recomm desc ,tab_goods.create_time desc
+        limit #{pagesize};
+    </select>
+    <select id="selectTBySKey" resultType="com.zhzteam.zhz233.model.zlb.RentResult">
+        <include refid="selectTBySKey"/>
+        where tab_goods.account_no = tab_user.account_no
+        and tab_goods.goods_no = tab_goods_rent.goods_no
+        and tab_goods_rent.goods_no = tab_goods_more.goods_no
+        and tab_goods.goods_type= #{goodsType}
+        and tab_goods.goods_status= #{goodsStatus}
+        <if test="gamesName != null">
+            and tab_goods.goods_game like CONCAT('%',#{gamesName},'%')
+        </if>
+        <if test="gamesServer != null">
+            and tab_goods_more.goods_server like CONCAT('%',#{gamesServer},'%')
+        </if>
+        <if test="gamesArea != null">
+            and tab_goods_more.goods_area like CONCAT('%',#{gamesArea},'%')
+        </if>
+        <if test="searchKey != null">
+            and tab_goods.goods_theme like CONCAT('%',#{searchKey},'%')
+        </if>
+        <if test="priceRange != null">
+            and tab_goods.goods_amount <![CDATA[<=]]> #{priceRange}
+        </if>
+        <if test="authenticate != null">
+            and tab_goods.goods_recomm = #{authenticate}
+        </if>
+        <if test="goodsSort != null">
+            <if test="goodsSort == 0">
+                order by tab_goods.goods_amount asc, tab_goods.goods_recomm asc, tab_goods.create_time asc 
+            </if>
+            <if test="goodsSort == 1">
+                order by tab_goods.goods_amount desc
+            </if>
+            <if test="goodsSort == 2">
+                order by tab_goods.goods_amount asc
+            </if>
+            <if test="goodsSort == 3">
+                order by tab_goods.goods_recomm desc
+            </if>
+            <if test="goodsSort == 4">
+                order by tab_goods.goods_recomm asc
+            </if>
+            <if test="goodsSort == 5">
+                order by tab_goods.create_time desc
+            </if>
+            <if test="goodsSort == 6">
+                order by tab_goods.create_time asc
+            </if>
+        </if>
+        limit #{currentPage},#{pageSize};
+    </select>
+    <select id="selectTBySAutoCount" resultType="java.lang.Integer">
+        <include refid="selectTBySAutoCount"/>
+        where tab_goods.account_no = tab_user.account_no
+        and tab_goods.goods_no = tab_goods_rent.goods_no
+        and tab_goods_rent.goods_no = tab_goods_more.goods_no
+        and tab_goods.goods_type= #{goodsType}
+        and tab_goods.goods_status= #{goodsStatus}
+        <if test="gamesName != null">
+            and tab_goods.goods_game like CONCAT('%',#{gamesName},'%')
+        </if>
+        <if test="gamesServer != null">
+            and tab_goods_more.goods_server like CONCAT('%',#{gamesServer},'%')
+        </if>
+        <if test="gamesArea != null">
+            and tab_goods_more.goods_area like CONCAT('%',#{gamesArea},'%')
+        </if>
+        <if test="searchKey != null">
+            and tab_goods.goods_theme like CONCAT('%',#{searchKey},'%')
+        </if>
+        <if test="priceRange != null">
+            and tab_goods.goods_amount <![CDATA[<=]]> #{priceRange}
+        </if>
+        <if test="authenticate != null">
+            and tab_goods.goods_recomm = #{authenticate}
+        </if>
+        <if test="goodsSort != null">
+            <if test="goodsSort == 0">
+                order by tab_goods.goods_amount asc, tab_goods.goods_recomm asc, tab_goods.create_time asc
+            </if>
+            <if test="goodsSort == 1">
+                order by tab_goods.goods_amount desc
+            </if>
+            <if test="goodsSort == 2">
+                order by tab_goods.goods_amount asc
+            </if>
+            <if test="goodsSort == 3">
+                order by tab_goods.goods_recomm desc
+            </if>
+            <if test="goodsSort == 4">
+                order by tab_goods.goods_recomm asc
+            </if>
+            <if test="goodsSort == 5">
+                order by tab_goods.create_time desc
+            </if>
+            <if test="goodsSort == 6">
+                order by tab_goods.create_time asc
+            </if>
+        </if>
+    </select>
+</mapper>

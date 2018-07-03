@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.GoodsMapper">
+    <!--selectRentTotal-->
+    <sql id="selectRentTotal">
+        select count(id)
+        from tab_goods
+    </sql>
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        select tab_goods.goods_no,tab_goods.goods_amount,
+          tab_user.account,tab_goods.goods_game,
+          tab_goods.goods_theme,tab_goods.goods_content,
+          tab_goods.goods_type,tab_goods.goods_recomm,
+          tab_goods.create_time
+        from tab_goods,tab_user
+    </sql>
+    <sql id="selectByGoodsNo">
+        select COUNT(id)
+        from tab_goods
+    </sql>
+    <sql id="selectTByGoodsNo">
+        select tab_goods.goods_no,tab_goods.account_no,tab_goods.goods_amount,
+        tab_goods_rent.goods_night,tab_goods_rent.goods_day,tab_goods_rent.goods_week
+        from tab_goods,tab_goods_rent
+    </sql>
+    <select id="selectTByGoodsNo" resultType="com.zhzteam.zhz233.model.zlb.GoodsLeaseResult">
+        <include refid="selectTByGoodsNo"/>
+        where tab_goods.goods_no = tab_goods_rent.goods_no
+        and tab_goods.goods_no = #{goodsNo}
+    </select>
+    <select id="selectByGoodsNo" resultType="java.lang.Integer">
+        <include refid="selectByGoodsNo"/>
+        where goods_no = #{goodsNo}
+        and goods_type = #{goodsType}
+        and goods_status = #{goodsStatus};
+    </select>
+    <!--selectRentTotal-->
+    <select id="selectRentTotal" resultType="java.lang.Integer">
+        <include refid="selectRentTotal"/>
+        where goods_type = #{goodstype}
+        and goods_status = #{goodsstatus}
+    </select>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.GoodsResult">
+        <include refid="selectTByKey"/>
+        where tab_goods.account_no = tab_user.account_no
+        and goods_type =#{goodstype}
+        and goods_recomm =#{goodsrecomm}
+        and goods_status =#{goodsstatus}
+        order by tab_goods.create_time desc
+        limit #{pagesize}
+    </select>
+
+</mapper>

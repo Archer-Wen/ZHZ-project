@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.InvlaMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByANO">
+        select order_operate_type as 'type',
+          count(id) as 'number',
+          ifnull(sum(order_amount),0) as 'total'
+        from tab_invla
+    </sql>
+    <!--selectTByKey-->
+    <sql id="selectTByNO">
+        select order_no,order_operate_type,order_amount,create_time
+        from tab_invla
+    </sql>
+    <!--selectNo-->
+    <sql id="selectAutoNo">
+        SELECT order_no
+        FROM tab_invla
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+    <!--insertTByKey-->
+    <insert id="insertTByKey">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_invla(order_no,account_no,order_operate_type,order_amount,update_time)
+        values (#{orderNo},#{accountNo},#{orderType},#{amount},now())
+    </insert>
+    <!--selectByKey-->
+    <select id="selectTByNO" resultType="com.zhzteam.zhz233.model.zlb.InvlaInfoResult">
+        <include refid="selectTByNO"/>
+        where tab_invla.account_no = #{accountNo}
+    </select>
+    <!--selectTByKey-->
+    <select id="selectTByANO" resultType="com.zhzteam.zhz233.model.zlb.InvlaResult">
+        <include refid="selectTByANO"/>
+        where tab_invla.account_no = #{accountNo}
+        and (tab_invla.order_operate_type = 0 or tab_invla.order_operate_type = 1)
+        group by tab_invla.order_operate_type;
+    </select>
+</mapper>

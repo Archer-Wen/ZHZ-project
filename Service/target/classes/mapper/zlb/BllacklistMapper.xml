@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.BlacklistMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        SELECT blacklist_no,
+          tab_user.account as 'link_account',
+          tab_user.cell_phone,blacklist_reasons,
+          tab_blacklist.create_time
+        FROM tab_blacklist,tab_user
+    </sql>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.BlacklistResult">
+        <include refid="selectTByKey"/>
+        where tab_blacklist.link_account_no = tab_user.account_no
+        order by tab_blacklist.create_time desc
+        limit #{pagesize}
+    </select>
+</mapper>

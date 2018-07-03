@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.GoodsRentMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        select tab_goods.goods_no,tab_goods.goods_game,goods_hour,goods_night,
+        goods_day,goods_week,goods_logon_style,tab_user.account,goods_type,
+        goods_theme,goods_content,goods_recomm,goods_compensate,
+        tab_goods.create_time,goods_beforehand,goods_delay,goods_short_time,
+        goods_credit_level
+        from tab_goods,tab_user,tab_goods_rent
+    </sql>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.GoodsRentResult">
+        <include refid="selectTByKey"/>
+        where tab_goods.account_no = tab_user.account_no
+        and tab_goods.goods_no = tab_goods_rent.goods_no
+        and goods_type =#{goodstype}
+        and goods_recomm =#{goodsrecomm}
+        and goods_status =#{goodsstatus}
+        order by tab_goods.create_time desc
+        limit #{pagesize}
+    </select>
+</mapper>

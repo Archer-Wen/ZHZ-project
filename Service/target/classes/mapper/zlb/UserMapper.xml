@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.UserMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        SELECT account_no,account,cell_phone,access,img_url
+        FROM tab_user
+    </sql>
+    <!--selectNo-->
+    <sql id="selectAutoNo">
+        SELECT account_no
+        FROM tab_user
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--selectId-->
+    <sql id="selectCountId">
+        SELECT count(id)
+        FROM tab_user
+    </sql>
+    <!--selectTByNo-->
+    <sql id="selectTByNo">
+        SELECT account_no,account,cell_phone,access,img_url
+        FROM tab_user
+    </sql>
+    <!--selectCellPhoneByANO-->
+    <sql id="selectCellPhoneByANO">
+        SELECT cell_phone as 'cellphone'
+        from tab_user
+    </sql>
+    <!--updateT-->
+    <sql id="updateT">
+        update tab_user
+    </sql>
+    <!--selectCertificationByANO-->
+    <sql id="selectCertificationByANO">
+        SELECT certification
+        from tab_account
+    </sql>
+    <!--selectCertificationByANO-->
+    <select id="selectCertificationByANO" resultType="java.lang.Integer">
+        <include refid="selectCertificationByANO"/>
+        where account_no = #{accountNo}
+    </select>
+    <!--updateCPByCPANo-->
+    <update id="updateCPByCPANo">
+        <include refid="updateT"/>
+        set cell_phone = #{cellphone}
+        where account_no = #{accountNo}
+    </update>
+    <!--updatePwdByPwdANo-->
+    <update id="updatePwdByPwdANo">
+        <include refid="updateT"/>
+        set password = #{password}
+        where account_no = #{accountNo}
+    </update>
+    <!--selectCellPhoneByANO-->
+    <select id="selectCellPhoneByANO" resultType="java.lang.String">
+        <include refid="selectCellPhoneByANO"/>
+        where account_no = #{accountNo}
+    </select>
+    <!--selectTByNo-->
+    <select id="selectTByNo" resultType="com.zhzteam.zhz233.model.zlb.UserResult">
+        <include refid="selectTByKey"/>
+        where account_no = #{no}
+    </select>
+    <!--selectTByUserName-->
+    <select id="selectTByUserName" resultType="java.lang.Long">
+        <include refid="selectCountId"/>
+        where account = #{username}
+    </select>
+    <!--selectTByCellPhone-->
+    <select id="selectTByCellPhone" resultType="java.lang.Long">
+        <include refid="selectCountId"/>
+        where cell_phone = #{cellphone}
+    </select>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+    <!--insertTByKey-->
+    <insert id="insertTByKey">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_user(account_no,account,cell_phone,password)
+        values (#{autoNo},#{username},#{cellphone},#{password})
+    </insert>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.UserResult">
+        <include refid="selectTByKey"/>
+        where (account = #{username}
+        OR cell_phone = #{username})
+        and password = #{password}
+    </select>
+</mapper>

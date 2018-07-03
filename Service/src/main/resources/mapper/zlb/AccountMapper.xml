@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.AccountMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByANO">
+        SELECT tab_user.account,tab_user.cell_phone as 'cellphone',tab_user.img_url as 'imgUrl',
+          tab_account.certification,tab_account.available,tab_account.frozen,
+          tab_account.credit_level as 'creditLevel'
+        FROM tab_account,tab_user
+    </sql>
+    <!--updateT-->
+    <sql id="updateT">
+        update tab_account
+    </sql>
+    <!--updateAvailableByPwdANo-->
+    <update id="updateAvailableByPwdANo">
+        <include refid="updateT"/>
+        set available = available + #{money}
+        where account_no = #{accountNo}
+    </update>
+    <!--updatePwdByPwdANo-->
+    <update id="updatePwdByPwdANo">
+        <include refid="updateT"/>
+        set traders_password = #{password}
+        where account_no = #{accountNo}
+    </update>
+    <!--updateCertificationByANO-->
+    <update id="updateCertificationByANO">
+        <include refid="updateT"/>
+        set certification = #{certification}
+        where account_no = #{accountNo}
+    </update>
+    <!--selectTByKey-->
+    <select id="selectTByANO" resultType="com.zhzteam.zhz233.model.zlb.AccountResult">
+        <include refid="selectTByANO"/>
+        where tab_account.account_no = tab_user.account_no
+        and tab_account.account_no= #{accountNo}
+    </select>
+</mapper>

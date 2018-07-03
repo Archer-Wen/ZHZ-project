@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.GamesMapper">
+    <!--selectTByKey-->
+    <sql id="selectTByKey">
+        SELECT games_no,games_type,games_name,games_recomm
+        FROM tab_games
+    </sql>
+    <!--selectTByKey-->
+    <select id="selectTByKey" resultType="com.zhzteam.zhz233.model.zlb.GamesResult">
+        <include refid="selectTByKey"/>
+        where games_type = #{gamestype}
+        order by games_recomm desc
+        limit #{pagesize}
+    </select>
+    <select id="selectTByHotKey" resultType="com.zhzteam.zhz233.model.zlb.GamesResult">
+        <include refid="selectTByKey"/>
+        order by games_recomm desc
+        limit #{pagesize}
+    </select>
+    <select id="selectTByListKey" resultType="com.zhzteam.zhz233.model.zlb.GamesResult">
+        <include refid="selectTByKey"/>
+        order by games_recomm desc
+        limit #{pagesize}
+    </select>
+    <!--selectTByListName-->
+    <select id="selectTByListName" resultType="java.lang.String">
+        select node_name from tab_games_node where node_level = 1 limit #{pagesize}
+    </select>
+    <!--selectTByListServer-->
+    <select id="selectTByListServer" resultType="java.lang.String">
+        select node_name
+        from tab_games_node
+        where node_no = (
+          select id
+          from tab_games_node
+          where node_name = #{gamesName} and node_level = 1
+        )
+    </select>
+    <!--selectTByListArea-->
+    <select id="selectTByListArea" resultType="java.lang.String">
+        select node_name from tab_games_node where node_no =(
+        select id from tab_games_node where node_name = #{serverName} and node_no = (
+          select id from tab_games_node where node_name = #{gamesName} and node_level = 1
+        ) and node_level = 2
+        )
+    </select>
+</mapper>

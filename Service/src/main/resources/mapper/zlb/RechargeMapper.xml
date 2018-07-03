@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhzteam.zhz233.mapper.zlb.RechargeMapper">
+    <!--selectNo-->
+    <sql id="selectAutoNo">
+        SELECT order_no
+        FROM tab_recharge_order
+        ORDER BY create_time DESC,id desc
+        LIMIT 1
+    </sql>
+    <!--selectTByAuto-->
+    <select id="selectTByAuto" resultType="java.lang.String">
+        <include refid="selectAutoNo"/>
+    </select>
+    <!--insertTByKey-->
+    <insert id="insertTByKey">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into tab_recharge_order(order_no,account_no,order_pay_method,order_amount,order_state,update_time)
+        values (#{orderNo},#{accountNo},#{orderMethod},#{amount},#{status},now())
+    </insert>
+</mapper>
