@@ -1,0 +1,152 @@
+html {
+ height:100%
+}
+body {
+ height:100%;
+ font-size:14px;
+ line-height:160%;
+ color:#666;
+ background:url(../img/bg.gif) repeat
+}
+body,input,button,select,textarea,h1,h2,h3,h4,h5,h6 {
+ font-family:'Helvetica Neue',STHeiti,'Microsoft YaHei',Helvetica,Arial,sans-serif
+}
+#bbs-board{
+	border-bottom:1px solid #999999;
+}
+#bbs-cont{
+	border-bottom:1px solid #999999;
+}
+#reply-table{
+	margin-top: 10px;
+}
+
+/*按钮样式*/
+#bbs-cont .btn{ 
+    color: #fff; 
+    text-transform: uppercase; 
+    border-radius: 0; 
+    padding-left: 60px; 
+    position: relative; 
+    transform: translateZ(0px); 
+    transition: all 0.5s ease 0s; 
+} 
+#bbs-cont .btn:after{ 
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0; 
+    background: #fff; 
+    z-index: -1; 
+    transform: scaleX(0); 
+    transform-origin: 100% 50% 0; 
+    transition: all 0.5s ease-out 0s; 
+} 
+#bbs-cont .btn:hover:after{ 
+    transform: scaleX(1); 
+    transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); 
+} 
+#bbs-cont .btn span{ 
+    width: 40px; 
+    height: 100%; 
+    line-height: 45px; 
+    background: #fff; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    transition: all 0.3s linear 0s; 
+} 
+#bbs-cont .btn span:after{ 
+    content: ""; 
+    display: block; 
+    width: 10px; 
+    height: 10px; 
+    background: #fff; 
+    margin: auto 0; 
+    position: absolute; 
+    top: 0; 
+    right: -5px; 
+    bottom: 0; 
+    transform: rotate(45deg); 
+    transition: all 0.3s linear 0s; 
+} 
+#bbs-cont .btn.btn-sm{ 
+    padding-left: 40px; 
+} 
+#bbs-cont .btn.btn-sm span{ 
+    width: 27px; 
+    line-height: 30px; 
+} 
+#bbs-cont .btn.btn-sm span:after{ 
+    width: 8px; 
+    height: 8px; 
+    right: -4px; 
+} 
+#bbs-cont .btn.btn-xs{ 
+    padding-left: 30px; 
+} 
+#bbs-cont .btn.btn-xs span{ 
+    width: 20px; 
+    line-height: 23px; 
+} 
+#bbs-cont .btn.btn-xs span:after{ 
+    width: 7px; 
+    height: 7px; 
+    right: -3px; 
+} 
+#bbs-cont .btn.red{ 
+    border: 1px solid #fe6d6d; 
+    background: #fe6d6d; 
+} 
+#bbs-cont .btn.red:hover, 
+#bbs-cont .btn.red span{ 
+    color: #fe6d6d; 
+} 
+#bbs-cont .btn.red:hover span, 
+#bbs-cont .btn.red:hover span:after{ 
+    background: #fe6d6d; 
+} 
+#bbs-cont .btn.blue{ 
+    border: 1px solid #3bb4e5; 
+    background: #3bb4e5; 
+} 
+#bbs-cont .btn.blue:hover, 
+#bbs-cont .btn.blue span{ 
+    color: #3bb4e5; 
+} 
+#bbs-cont .btn.blue:hover span, 
+#bbs-cont .btn.blue:hover span:after{ 
+    background: #3bb4e5; 
+} 
+#bbs-cont .btn.orange{ 
+    border: 1px solid #ee955b; 
+    background: #ee955b; 
+} 
+#bbs-cont .btn.orange:hover, 
+#bbs-cont .btn.orange span{ 
+    color: #ee955b; 
+} 
+#bbs-cont .btn.orange:hover span, 
+#bbs-cont .btn.orange:hover span:after{ 
+    background: #ee955b; 
+} 
+#bbs-cont .btn.green{ 
+    border: 1px solid #79d799; 
+    background: #79d799; 
+} 
+#bbs-cont .btn.green:hover, 
+#bbs-cont .btn.green span{ 
+    color: #79d799; 
+} 
+#bbs-cont .btn.green:hover span, 
+#bbs-cont .btn.green:hover span:after{ 
+    background: #79d799; 
+} 
+#bbs-cont .btn:hover span{ 
+    color: #fff; 
+} 
+@media only screen and (max-width: 767px){ 
+    .btn{ margin-bottom: 20px; } 
+}

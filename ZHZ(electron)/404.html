@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/defult.css" />
+		<script type="text/javascript" src="js/defult.js" ></script>
+		<title>404</title>
+	</head>
+	<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-sm-12 column">
+				<nav class="navbar navbar-default navbar-fixed-top mynav" role="navigation">
+					<div class="container-fluid	">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+							<img src="img/sy_public_logo.gif" style="height: 6rem;background-color: #fbfbfb;" href="index.html" />
+						</div>
+						<div class="collapse navbar-collapse row" id="example-navbar-collapse">
+							<ul class="nav navbar-nav col-sm-9 row">
+								<li class="col-sm-1 down">
+									<a onclick="javascript :location.back(-1)"><i class="fa fa-reply fa-1"></i></a>
+								</li>
+								<li class="col-sm-1 down">
+									<a onclick="javascript :location.reload()"><i class="fa fa-refresh fa-1"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='index.html';"><i class="fa fa-home fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick=""><i class="fa fa-yen fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar"><i class="fa fa-gamepad fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='bbs.html';"><i class="fa fa-wechat fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a href="user.html"><i class="fa fa-user-circle fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a><i class="fa fa-list fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a id="show-modal"><i class="fa fa-vcard-o fa-1x"></i></a>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right col-sm-1 row">
+								<li class="col-sm-1 col-sm-pull-2 push">
+									<a onclick="minbt(this)"><i class=" fa fa-window-minimize fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 push">
+									<a onclick="closebt(this)"><i class=" fa fa-power-off fa-1x"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<img src="img/404.jpg" class="center-block" style="height: 49rem;"/>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+#myTable .btn{ 
+    color: #fff; 
+    text-transform: uppercase; 
+    border-radius: 0; 
+    padding-left: 60px; 
+    position: relative; 
+    transform: translateZ(0px); 
+    transition: all 0.5s ease 0s; 
+} 
+#myTable .btn:after{ 
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0; 
+    background: #fff; 
+    z-index: -1; 
+    transform: scaleX(0); 
+    transform-origin: 100% 50% 0; 
+    transition: all 0.5s ease-out 0s; 
+} 
+#myTable .btn:hover:after{ 
+    transform: scaleX(1); 
+    transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); 
+} 
+#myTable .btn span{ 
+    width: 40px; 
+    height: 100%; 
+    line-height: 45px; 
+    background: #fff; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    transition: all 0.3s linear 0s; 
+} 
+#myTable .btn span:after{ 
+    content: ""; 
+    display: block; 
+    width: 10px; 
+    height: 10px; 
+    background: #fff; 
+    margin: auto 0; 
+    position: absolute; 
+    top: 0; 
+    right: -5px; 
+    bottom: 0; 
+    transform: rotate(45deg); 
+    transition: all 0.3s linear 0s; 
+} 
+#myTable .btn.btn-sm{ 
+    padding-left: 40px; 
+} 
+#myTable .btn.btn-sm span{ 
+    width: 27px; 
+    line-height: 30px; 
+} 
+#myTable .btn.btn-sm span:after{ 
+    width: 8px; 
+    height: 8px; 
+    right: -4px; 
+} 
+#myTable .btn.btn-xs{ 
+    padding-left: 30px; 
+} 
+#myTable .btn.btn-xs span{ 
+    width: 20px; 
+    line-height: 23px; 
+} 
+#myTable .btn.btn-xs span:after{ 
+    width: 7px; 
+    height: 7px; 
+    right: -3px; 
+} 
+#myTable .btn.red{ 
+    border: 1px solid #fe6d6d; 
+    background: #fe6d6d; 
+} 
+#myTable .btn.red:hover, 
+#myTable .btn.red span{ 
+    color: #fe6d6d; 
+} 
+#myTable .btn.red:hover span, 
+#myTable .btn.red:hover span:after{ 
+    background: #fe6d6d; 
+} 
+#myTable .btn.blue{ 
+    border: 1px solid #3bb4e5; 
+    background: #3bb4e5; 
+} 
+#myTable .btn.blue:hover, 
+#myTable .btn.blue span{ 
+    color: #3bb4e5; 
+} 
+#myTable .btn.blue:hover span, 
+#myTable .btn.blue:hover span:after{ 
+    background: #3bb4e5; 
+} 
+#myTable .btn.orange{ 
+    border: 1px solid #ee955b; 
+    background: #ee955b; 
+} 
+#myTable .btn.orange:hover, 
+#myTable .btn.orange span{ 
+    color: #ee955b; 
+} 
+#myTable .btn.orange:hover span, 
+#myTable .btn.orange:hover span:after{ 
+    background: #ee955b; 
+} 
+#myTable .btn.green{ 
+    border: 1px solid #79d799; 
+    background: #79d799; 
+} 
+#myTable .btn.green:hover, 
+#myTable .btn.green span{ 
+    color: #79d799; 
+} 
+#myTable .btn.green:hover span, 
+#myTable .btn.green:hover span:after{ 
+    background: #79d799; 
+} 
+#myTable .btn:hover span{ 
+    color: #fff; 
+} 
+@media only screen and (max-width: 767px){ 
+    .btn{ margin-bottom: 20px; } 
+}
+
+
+
+/********************/
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,500);
+#writeBBS .container div,#writeBBS .container span,
+#writeBBS .container ul,
+#writeBBS .container a,#writeBBS .container i,
+#writeBBS .container ul,#writeBBS .container li{
+  /*margin: 0;*/
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+#writeBBS ul {
+  list-style: none;
+}
+
+#writeBBS * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#writeBBS .container{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.card-drop {
+  position: relative;
+  margin: 0 auto;
+  -moz-perspective: 800px;
+  -webkit-perspective: 800px;
+  perspective: 800px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.card-drop a {
+  /*display: block;*/
+  width: 100%;
+  padding: 20px 0 20px 20px;
+  height: 60px;
+  text-decoration: none;
+  color: #217dbb;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  display:flex;/*Flex布局*/
+  display: -webkit-flex; /* Safari */
+  align-items:center;/*指定垂直居中*/
+}
+.card-drop a i {
+  display: inline-block;
+  width: 20px;
+  margin-left: 20px;!important
+}
+.card-drop > a.toggle {
+  position: relative;
+  z-index: 100;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -moz-transform-origin: 50% 0%;
+  -ms-transform-origin: 50% 0%;
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+  -moz-transition: linear 0.1s;
+  -o-transition: linear 0.1s;
+  -webkit-transition: linear 0.1s;
+  transition: linear 0.1s;
+}
+.card-drop > a.toggle:active {
+  -moz-transform: rotateX(60deg);
+  -webkit-transform: rotateX(60deg);
+  transform: rotateX(60deg);
+}
+.card-drop > a.toggle:active:after {
+  -moz-transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+.card-drop > a.toggle:before,.card-drop > a.toggle:after {
+  content: "";
+  position: absolute;
+}
+.card-drop > a.toggle:before {
+  right: 25px;
+  top: 50%;
+  margin-top: -2.5px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.8);
+}
+.card-drop > a.toggle.active:before {
+  transform: rotate(180deg);
+}
+.card-drop ul {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  display: block;
+  width: 100%;
+}
+.card-drop ul li {
+  margin: 0 auto;
+  -moz-transition: all, ease-out 0.3s;
+  -o-transition: all, ease-out 0.3s;
+  -webkit-transition: all, ease-out 0.3s;
+  transition: all, ease-out 0.3s;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+}
+.card-drop ul li a {
+  border-top: none;
+}
+.card-drop ul li a:hover {
+  background-color: #4aa3df;
+  color: #f3f9fd;
+}
+.card-drop ul li.active a {
+  color: #fff;
+  background-color: #258cd1;
+  cursor: default;
+}
+.card-drop ul li.closed a:hover {
+  cursor: default;
+  background-color: #3498db;
+}

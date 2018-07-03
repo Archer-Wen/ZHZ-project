@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/defult.css" />
+		<script type="text/javascript" src="js/defult.js" ></script>
+		<script type="text/javascript" src="js/index.js" ></script>
+		<title>主界面</title>
+	</head>
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-sm-12 column">
+			<nav class="navbar navbar-default navbar-fixed-top mynav" role="navigation">
+				<div class="container-fluid	">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<img src="img/sy_public_logo.gif" style="height: 6rem;background-color: #fbfbfb;" href="index.html"/>
+					</div>
+					<div class="collapse navbar-collapse row" id="example-navbar-collapse">
+						<ul class="nav navbar-nav col-sm-9 row">
+							<li class="col-sm-1 down">
+								<a onclick="javascript :location.back(-1)"><i class="fa fa-reply fa-1"></i></a>
+							</li>
+							<li class="col-sm-1 down">
+								<a onclick="javascript :location.reload()"><i class="fa fa-refresh fa-1"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-2 down">
+								<a id="mainbar" onclick="getJson()"><i class="fa fa-home fa-2x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-2 down">
+								<a id="mainbar" onclick="javascript :window.location.href='404.html'"><i class="fa fa-yen fa-2x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-2 down">
+								<a id="mainbar" onclick="javascript :window.location.href='404.html'"><i class="fa fa-gamepad fa-2x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-2 down">
+								<a id="mainbar" onclick="javascript :window.location.href='bbs.html';"><i class="fa fa-wechat fa-2x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-5 downtwo">
+								<a href="user.html"><i class="fa fa-user-circle fa-1x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-5 downtwo">
+								<a ><i class="fa fa-list fa-1x"></i></a>
+							</li>
+							<li class="col-sm-1 col-sm-push-5 downtwo">
+								<a id="show-modal"><i class="fa fa-vcard-o fa-1x"></i></a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right col-sm-1 row">
+							<li class="col-sm-1 col-sm-pull-2 push">
+								<a onclick="minbt(this)"><i class=" fa fa-window-minimize fa-1x"></i></a>
+							</li>
+							<li class="col-sm-1 push">
+								<a onclick="closebt(this)"><i class=" fa fa-power-off fa-1x"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-sm-2 column" id="verticalnavbar">
+			<ul class="nav nav-stacked nav-pills">
+				<li>
+					 <a href="#" onclick="togetJson('英雄联盟')">英雄联盟</a>
+				</li>
+				<li>
+					 <a href="#" onclick="togetJson('绝地求生')">绝地求生</a>
+				</li>
+				<li >
+					 <a href="#" onclick="togetJson('王者荣耀')">王者荣耀</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-sm-10 column table-responsive" id="maintable" style="margin-top: -25px;">
+			<table id="table"></table>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:400px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h3 class="modal-title" id="myModalLabel">
+					Login
+				</h3>
+			</div>
+			<div class="modal-body">
+			<div id="alert-danger"><!--class="alert alert-danger"--></div>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-user fa-lg"></i></span>
+				<input class="form-control required" type="text" placeholder="Username" id="username" name="username" autofocus="autofocus" maxlength="20" />
+			</div>
+			<br />
+			<div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-lg"></i></span>
+				<input class="form-control required" type="password" placeholder="Password" id="password" name="password" maxlength="16" />
+			</div>
+			</div>
+			<div class="form-group col-md-offset-9 modal-footer">
+				<button id="login-btn" type="submit" class="btn btn-success pull-right" name="submit">登录</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+	</div>
+	<div class="row clearfix">
+		<div class='modal my-modal-alert' id='my-modal-alert'>
+			<div class='modal-dialog boxBodySmall' style="width:300px">
+				<div class='modal-content'>
+					<div class='modal-header boxHeader'>
+						<h4 class='modal-title boxTitle' id='modal-title'>警告</h4>
+					</div>
+					<div class='modal-body' id='modal-body-alert'>
+						<div id='modal_message'>js弹框自动消失案例</div>
+						<span id='num'></span>
+					</div>
+					<div class='modal-footer boxFooter' id='modal-footer'>
+						<button type='button' class='btn btn-info boxButton' data-dismiss='modal' onclick="zuxiao();">确定</button>
+						<button type='button' class='btn btn-default boxButton' data-dismiss='modal' onclick="javascript:$('#my-modal-alert').toggle();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

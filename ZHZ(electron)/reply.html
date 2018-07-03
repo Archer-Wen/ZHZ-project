@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/summernote.min.js" ></script>
+		<script type="text/javascript" src="js/summernote-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/defult.js" ></script>
+		<script type="text/javascript" src="js/reply.js" ></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/defult.css" />
+		<link rel="stylesheet" href="css/bbs.css" />
+		<link rel="stylesheet" href="css/summernote.css" />
+		<link rel="stylesheet" href="css/reply.css" />
+		<title>回帖</title>
+	</head>
+	<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-sm-12 column">
+				<nav class="navbar navbar-default navbar-fixed-top mynav" role="navigation">
+					<div class="container-fluid	">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<img src="img/sy_public_logo.gif" style="height: 6rem;background-color: #fbfbfb;" href="index.html" />
+						</div>
+						<div class="collapse navbar-collapse row" id="example-navbar-collapse">
+							<ul class="nav navbar-nav col-sm-9 row">
+								<li class="col-sm-1 down">
+									<a onclick="javascript :window.location.href='bbs.html';"><i class="fa fa-reply fa-1"></i></a>
+								</li>
+								<li class="col-sm-1 down">
+									<a onclick="javascript :location.reload()"><i class="fa fa-refresh fa-1"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='index.html';"><i class="fa fa-home fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='404.html';"><i class="fa fa-yen fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='404.html';"><i class="fa fa-gamepad fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-2 down">
+									<a id="mainbar" onclick="javascript :window.location.href='bbs.html';"><i class="fa fa-wechat fa-2x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a href="user.html"><i class="fa fa-user-circle fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a><i class="fa fa-list fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 col-sm-push-5 downtwo">
+									<a id="show-modal"><i class="fa fa-vcard-o fa-1x"></i></a>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right col-sm-1 row">
+								<li class="col-sm-1 col-sm-pull-2 push">
+									<a onclick="minbt(this)"><i class=" fa fa-window-minimize fa-1x"></i></a>
+								</li>
+								<li class="col-sm-1 push">
+									<a onclick="closebt(this)"><i class=" fa fa-power-off fa-1x"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="row clearfix aw-content-wrap col-sm-offset-1" id="bbs">
+			<div class="col-sm-12 ">
+				<div id="bbs-head" class=" aw-topic-bar ">
+					<span id="bbs-id" style="display: none;">
+						1
+					</span>
+					<span id="bbs-board">
+						板块
+					</span>
+					<span class="pull-right" id="bbs-account">
+						admin • 发起
+					</span>
+				</div>
+				<div id="bbs-cont" class=" aw-question-detail aw-item ">
+					<div class="mod-head">
+						<h1>标题</h1>
+					</div>
+					<div class="mod-body">
+						<div class="content markitup-box">
+							内容
+						</div>
+					</div>
+					<div class="mod-footer">
+						<div class="meta">
+							<span class="text-color-999" id="creat-time">2018-05-14</span>
+							<a href="#" class="btn blue btn-xs pull-right" id="show-writeReply">
+            					<span class="fa fa-wechat"></span>添加评论 
+       					</a>
+						</div>
+					</div>
+				</div>
+				<!--<div id="reply-body">
+					<div id="reply-head" class="title">
+						<p>
+							<span>wenliheng</span>
+							<span class="pull-right">1#</span>
+						</p>
+					</div>
+					<div id="reply-cont" class="clearfix">
+						生成tr的时候带上跳转地址，拿JQ来说，tr.click 执行 window.location.href = “你要跳转的地址”
+					</div>
+					<div id="reply-footer">
+						<span class="text-color-999 pull-right">2018.5.14</span>
+					</div>
+				</div>-->
+				<table id="reply-table" class=""></table>
+			</div>
+		</div>
+		
+		<!--警告模态框-->
+	<div class="row clearfix">
+		<div class='modal my-modal-alert' id='my-modal-alert'>
+			<div class='modal-dialog boxBodySmall' style="width:300px">
+				<div class='modal-content'>
+					<div class='modal-header boxHeader'>
+						<h4 class='modal-title boxTitle' id='modal-title'>警告</h4>
+					</div>
+					<div class='modal-body' id='modal-body-alert'>
+						<div id='modal_message'></div>
+						<span id='num'></span>
+					</div>
+					<div class='modal-footer boxFooter' id='modal-footer'>
+						<button type='button' class='btn btn-info boxButton' data-dismiss='modal' onclick="zuxiao();">确定</button>
+						<button type='button' class='btn btn-default boxButton' data-dismiss='modal' onclick="javascript:$('#my-modal-alert').toggle();">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--评论模态框-->
+	<div class="modal fade" id="writeReply" tabindex="-1" role="dialog" aria-labelledby="writeBBSLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:800px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h3 class="modal-title" id="writeBBSLabel">
+					发表评论
+				</h3>
+			</div>
+			<div class="modal-body">
+			
+			<div id="alert-danger"><!--class="alert alert-danger"--></div>
+			<div id="summernote">内容</div>
+			<br />
+			</div>
+			
+			<div class="form-group col-md-offset-9 modal-footer">
+				<button id="Reply-btn" type="submit" class="btn btn-success pull-right" name="submit">发布</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+	</div>
+	
+	</div>
+	</body>
+</html>

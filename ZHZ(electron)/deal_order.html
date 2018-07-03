@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-table.min.css" />
+		<script type="text/javascript" src="js/jquery.js" ></script>
+		<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-table-zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/defult.js" ></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/defult.css" />
+		<title>买卖订单</title>
+	</head>
+	<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<nav class="navbar navbar-default navbar-fixed-top mynav">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							<img src="img/sy_public_logo.gif" style="height: 5rem;background-color: #fbfbfb;">
+							<a href="index.html"></a>
+							</img>
+						</div>
+						<div class="collapse navbar-collapse row " id="example-navbar-collapse">
+							<ul class="nav navbar-nav row col-md-9">
+								<li class="col-md-1 down">
+									<a onclick="javascript :window.location.href='index.html';"><i class="fa fa-reply fa-1"></i></a>
+								</li>
+								<li class="col-md-1 down">
+									<a onclick="javascript :location.reload()"><i class="fa fa-refresh fa-1"></i></a>
+								</li>
+								<li class="col-md-3 col-md-push-3">
+									<a id="mainbar" onclick="javascript :window.location.href='user.html';"><i class="fa">已租账号</i></a>
+								</li>
+								<li class="col-md-3 col-md-push-1">
+									<a id="mainbar" onclick="javascript :window.location.href='deal_order.html';"><i class="fa">已买账号</i></a>
+								</li>
+								<li class="col-md-3 col-md-pull-1">
+									<a id="mainbar" onclick="javascript :window.location.href='deal_order.html';"><i class="fa">代练账号</i></a>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right col-md-1 row">
+								<li class="col-md-1 col-md-pull-1 push">
+									<a onclick="minbt(this)"><i class=" fa fa-window-minimize fa-1x"></i></a>
+								</li>
+								<li class="col-md-1 push">
+									<a onclick="closebt(this)"><i class=" fa fa-power-off fa-1x"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<img src="img/404.jpg" class="center-block" style="height: 49rem;"/>
+		</div>
+	</div>
+</body>
+</html>

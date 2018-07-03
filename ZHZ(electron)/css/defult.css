@@ -1,0 +1,43 @@
+body{
+	margin-top: 8rem;
+}
+.down{
+     top:1.5625rem;
+}
+.downtwo{
+	top:2.5rem;
+}
+.fa-1{
+	font-size: 2rem;
+}
+.mynav{
+	background-color: #373538 !important;
+}
+#example-navbar-collapse a:hover{
+	color: #FFFFFF;
+}
+#example-navbar-collapse a:link{
+	color: #777777;
+}
+#maintable button{
+	border-radius: 15px;
+	margin-top: 3rem;
+}
+.push{
+	bottom: 1.5rem;	
+}
+.text-color-999{
+	font-size: 12px;
+	color: #999;
+}
+#question-content p a{
+	font-size: 14px;
+}
+#bbs-id{
+	display: none;
+}
+@font-face {
+	font-family:summernote;
+	src: url(../font/summernote.ttf);
+}
+
